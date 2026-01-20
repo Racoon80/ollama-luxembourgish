@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  ollama-luxembourgish:
+    container_name: ollama-luxembourgish
+    image: ollama/ollama:latest
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/Luxembourg
+      - OLLAMA_HOST=0.0.0.0:11434
+      - OLLAMA_MODELS=/root/.ollama/models
+      - OLLAMA_KEEP_ALIVE=24h
+      # Set default model to Luxembourgish
+      - OLLAMA_DEFAULT_MODEL=mannix/llamax3-8b-alpaca
+    volumes:
+      - /mnt/user/appdata/ai/ollama-luxembourgish:/root/.ollama
+      - ./modelfile:/modelfile
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    networks:
+      br0.106:
+        ipv4_address: 192.168.106.22
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  br0.106:
+    external: true
