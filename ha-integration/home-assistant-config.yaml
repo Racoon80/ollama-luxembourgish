@@ -1,0 +1,37 @@
+# Home Assistant Configuration for Ollama Luxembourgish
+# Add this to your configuration.yaml
+
+# OpenAI Conversation Integration (using proxy)
+conversation:
+  - platform: openai
+    name: "Lux Assistant"
+    api_key: "sk-lux-homeassistant"
+    base_url: "http://192.168.106.23:8000/v1"
+    model: "lux-assistant"
+    temperature: 0.7
+    max_tokens: 2000
+    context_threshold: 1
+    chat_model: "lux-assistant"
+
+# Voice Assistant Configuration
+assist_pipeline:
+  - name: "Luxembourgish Assistant"
+    language: "lb"
+    conversation_engine: "Lux Assistant"
+    conversation_language: "lb"
+    tts_engine: null  # Add your TTS here
+    tts_language: "lb"
+    stt_engine: null  # Add your STT here
+    stt_language: "lb"
+    wake_word_entity: null  # Add your wake word here
+
+# Alternative: Extended OpenAI Conversation (more features)
+# Requires custom component: https://github.com/jekalmin/extended_openai_conversation
+#
+# extended_openai_conversation:
+#   - name: "Lux Assistant Extended"
+#     api_key: "sk-lux-homeassistant"
+#     base_url: "http://192.168.106.23:8000/v1"
+#     model: "lux-assistant"
+#     temperature: 0.7
+#     max_tokens: 2000

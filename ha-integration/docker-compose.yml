@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  ollama-openai-proxy:
+    container_name: ollama-openai-proxy
+    build: .
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/Luxembourg
+    networks:
+      br0.106:
+        ipv4_address: 192.168.106.23
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  br0.106:
+    external: true

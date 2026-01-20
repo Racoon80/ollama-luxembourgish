@@ -1,0 +1,29 @@
+model_list:
+  - model_name: lux-assistant
+    litellm_params:
+      model: ollama/lux-assistant
+      api_base: http://192.168.106.22:11434
+      stream: true
+      temperature: 0.7
+      max_tokens: 2000
+    model_info:
+      id: lux-assistant
+      mode: chat
+      supports_function_calling: false
+      supports_vision: false
+
+general_settings:
+  master_key: sk-lux-1234567890
+  database_url: null
+  store_model_in_db: false
+
+litellm_settings:
+  drop_params: true
+  set_verbose: false
+  json_logs: false
+
+router_settings:
+  routing_strategy: simple-shuffle
+  redis_host: null
+  redis_port: null
+  enable_pre_call_checks: false
